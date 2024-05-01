@@ -43,13 +43,18 @@ const Home: NextPage = () => {
         <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
           <div className="flex justify-center items-center gap-12 flex-col sm:flex-row">
             <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
+              <p>Stake Your ETH</p>
+              <p>20% APY</p>
               <input
                 type="number"
                 className="w-full h-35 p-5 pl-10 text-lg text-white-700 border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500"
                 placeholder="ETH Amount"
               />
 
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="button">
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 mt-5 rounded"
+                type="button"
+              >
                 Deposit
               </button>
             </div>
