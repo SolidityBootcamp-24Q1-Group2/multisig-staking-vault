@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import type { NextPage } from "next";
 import { useAccount } from "wagmi";
@@ -15,7 +16,7 @@ const Home: NextPage = () => {
         <div className="px-5">
           <h1 className="text-center">
             <span className="block text-2xl mb-2">Welcome to</span>
-            <span className="block text-4xl font-bold">Scaffold-ETH 2</span>
+            <span className="block text-4xl font-bold">Multisig Staking Vault</span>
           </h1>
           <div className="flex justify-center items-center space-x-2">
             <p className="my-2 font-medium">Connected Address:</p>
@@ -37,6 +38,28 @@ const Home: NextPage = () => {
               packages/hardhat/contracts
             </code>
           </p>
+        </div>
+
+        <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
+          <div className="flex justify-center items-center gap-12 flex-col sm:flex-row">
+            <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
+              <p>Stake Your ETH</p>
+              <p>20% APY</p>
+              <input
+                type="number"
+                className="w-full h-35 p-5 pl-10 text-lg text-white-700 border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500"
+                placeholder="ETH Amount"
+              />
+
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 mt-5 rounded"
+                type="button"
+              >
+                Deposit
+                <Address address={connectedAddress} />
+              </button>
+            </div>
+          </div>
         </div>
 
         <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
