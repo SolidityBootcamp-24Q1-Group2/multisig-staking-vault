@@ -56,6 +56,7 @@ const Home: NextPage = () => {
                 type="button"
               >
                 Deposit
+                <Address address={connectedAddress} />
               </button>
             </div>
           </div>
