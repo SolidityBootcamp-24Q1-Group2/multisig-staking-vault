@@ -72,8 +72,6 @@ const Home: NextPage = () => {
 
 
 function Vault(params: {strategy: StakeStrategy}) {
-  const chain = useChainId();
-  const { address } = useAccount();
   const { strategy: { apy } } = params;
   const [vaultAmount, setVaultAmount]= useState<string | bigint>("");
   //const { data: dataStake, isLoading: isLoadingStake, isError: isErrorStake, isSuccess: isSuccessStake, write: writeStake } = useContractWrite({
