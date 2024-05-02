@@ -1,21 +1,44 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import type { NextPage } from "next";
-import { useAccount } from "wagmi";
+import { useAccount, useChainId } from "wagmi";
 import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { Address, InputBase, IntegerInput } from "~~/components/scaffold-eth";
+import { IntegerInput } from "~~/components/scaffold-eth";
+import deployedContracts from "../contracts/deployedContracts";
+import { write } from "fs";
 
+
+interface StakeStrategy {
+  apy: number;
+  id: string;
+}
+
+const stakeStrategies: StakeStrategy[] = [
+  {
+    apy: 20,
+    id: "1",
+  },
+  {
+    apy: 15,
+    id: "2",
+  },
+  {
+    apy: 10,
+    id: "3",
+  },
+];
 
 const Home: NextPage = () => {
-
   return (
     <>
       <div className="flex items-center flex-col flex-grow pt-10">
         <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
           <div className="flex justify-center items-center gap-12 flex-col sm:flex-row">
-            <Vault></Vault>
+            <Vault strategy={stakeStrategies[0]}></Vault>
+            <Vault strategy={stakeStrategies[1]}></Vault>
+            <Vault strategy={stakeStrategies[2]}></Vault>
           </div>
         </div>
         <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
@@ -48,27 +71,65 @@ const Home: NextPage = () => {
 };
 
 
-function Vault() { 
+function Vault(params: {strategy: StakeStrategy}) {
+  const chain = useChainId();
   const { address } = useAccount();
+  const { strategy: { apy } } = params;
+  const [vaultAmount, setVaultAmount]= useState<string | bigint>("");
+  //const { data: dataStake, isLoading: isLoadingStake, isError: isErrorStake, isSuccess: isSuccessStake, write: writeStake } = useContractWrite({
+  //  address: deployedContracts[11155111].Staking.address,
+  //  abi: deployedContracts[11155111].Staking.abi,
+  //  functionName: 'stake',
+  //  args: [vaultAmount],
+  //})
+
+  //const { data: dataUnstake, isLoading: isLoadingUnstake, isError: isErrorUnstake, isSuccess: isSuccessUnstake, write: writeUnstake } = useContractWrite({
+  //  address: deployedContracts[11155111].Staking.address,
+  //  abi: deployedContracts[11155111].Staking.abi,
+  //  functionName: 'unstake',
+  //  args: [vaultAmount],
+  //})
 
   return (
     <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
-    <p>Stake Your ETH</p>
-    <p>20% APY</p>
+    <h1>Strategy {apy}</h1>
+    <p> Vault {apy}% APY</p>
     <IntegerInput
-      value={'0'}
-      onChange={() => {}}
+      value={vaultAmount}
+      onChange={e => setVaultAmount(e)}
       name="deposit"
       placeholder="Deposit Amount"
     />
 
-    <button
-      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 mt-5 rounded"
-      type="button"
-    >
-      Deposit
-      <Address address={address} />
-    </button>
+    <div className="flex flex-row" >
+      <button
+        className="btn btn-active btn-neutral flex-grow mt-4 mr-2"
+        //disabled={"0"}
+        type="button"
+        //disabled={isLoadingStake}
+        onClick={() => {
+          //writeStake({
+          //  args: [vaultAmount],
+          //})
+        }}
+      >
+        Stake
+      </button>
+
+      <button
+        className="btn btn-active btn-neutral flex-grow mt-4"
+        //disabled={isLoadingUnstake}
+        type="button"
+        onClick={() => {
+          //writeUnstake({
+          //  args: [vaultAmount],
+          //})
+        }}
+      >
+        Withdraw
+      </button>
+    </div>
+
   </div>
   )
 }
