@@ -3,11 +3,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import type { NextPage } from "next";
-import { useAccount, useChainId } from "wagmi";
 import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { IntegerInput } from "~~/components/scaffold-eth";
 import deployedContracts from "../contracts/deployedContracts";
-import { write } from "fs";
 
 
 interface StakeStrategy {
